@@ -149,16 +149,16 @@ const brands: Brand[] = [
     summary:
       "Commercial video campaign appearances with clean delivery, camera confidence, and direct brand-fit energy.",
     links: [
-      "https://www.instagram.com/reel/DXUEjd6ip2B/?igsh=MW42NWg4eGFkNTE0Zw==",
-      "https://www.instagram.com/reel/DSktrSfD_hH/?igsh=MWhkbjVxY2N3cmMyZg==",
-      "https://www.instagram.com/reel/DUOWqCuAFyI/?igsh=MXVsY2o0bTIwNXduaQ==",
-      "https://www.instagram.com/reel/DUA-kSfj9xi/?igsh=cXN4emNla25wemdz",
-      "https://www.instagram.com/reel/DM-0NTghAcR/?igsh=MTFpNWV6dXJqNjFwbg==",
-      "https://www.instagram.com/reel/DNLWpRIMpZd/?igsh=MTlwZ2QzdTlwcnEx",
-      "https://www.instagram.com/reel/DPqxeWHjCYd/?igsh=MWNkd254dG05NjFobA==",
-      "https://www.instagram.com/reel/DS0JOAQDZYk/?igsh=MWhndzR5ejhtYnhtOQ==",
-      "https://www.instagram.com/p/DXmCJd5jM3k/?img_index=1&igsh=NmN2eDk0eXp4M3Nj",
-    ],
+  "https://www.instagram.com/reel/DXUEjd6ip2B/",
+  "https://www.instagram.com/reel/DSktrSfD_hH/",
+  "https://www.instagram.com/reel/DUOWqCuAFyI/",
+  "https://www.instagram.com/reel/DUA-kSfj9xi/",
+  "https://www.instagram.com/reel/DM-0NTghAcR/",
+  "https://www.instagram.com/reel/DNLWpRIMpZd/",
+  "https://www.instagram.com/reel/DPqxeWHjCYd/",
+  "https://www.instagram.com/reel/DS0JOAQDZYk/",
+  "https://www.instagram.com/p/DXmCJd5jM3k/",
+],
   },
   {
     name: "Saj Al Reef",
@@ -169,10 +169,10 @@ const brands: Brand[] = [
     summary:
       "Product-focused commercial work with approachable expression, controlled movement, and strong visual clarity.",
     links: [
-      "https://www.instagram.com/reel/DV8pkrRFWJw/?igsh=MTRmeGxsMHQ2c2ZhdQ==",
-      "https://www.instagram.com/reel/DV6ESfAAJbA/?igsh=MXA2NHVoNnBva3pkbQ==",
-      "https://www.instagram.com/reel/DVx8c9OjO4J/?igsh=anRpNHlhM2dzb28y",
-    ],
+  "https://www.instagram.com/reel/DV8pkrRFWJw/",
+  "https://www.instagram.com/reel/DV6ESfAAJbA/",
+  "https://www.instagram.com/reel/DVx8c9OjO4J/",
+],
   },
   {
     name: "Doritos",
@@ -182,7 +182,7 @@ const brands: Brand[] = [
     mood: "Youth campaign / high contrast commercial look",
     summary:
       "A sharp, high-energy commercial appearance built around expressive delivery and strong on-camera presence.",
-    links: ["https://www.instagram.com/reel/DT1Jq9gkuhT/?igsh=MWhrMDZ4a2FhaGtqYg=="],
+    links: ["https://www.instagram.com/reel/DT1Jq9gkuhT/"],
   },
   {
     name: "HoHos",
