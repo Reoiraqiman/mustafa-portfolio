@@ -1516,7 +1516,7 @@ export default function Home() {
         <SectionHeader
           eyebrow="dual ecosystem"
           title="Two identities, one disciplined professional signal."
-          text="The redesign separates technical credibility from commercial presence so each part of the portfolio has its own atmosphere, rhythm, and value."
+          text=""
         />
 
         <div className="grid gap-5 lg:grid-cols-2">
@@ -1569,7 +1569,7 @@ export default function Home() {
         <SectionHeader
           eyebrow="security operations track"
           title="Cybersecurity presented as a serious professional path."
-          text="This section uses a command-center language without hacker cliches. It organizes learning, seminars, academic work, and achievements as credible signals."
+          text=""
         />
 
         <div className="grid gap-5 lg:grid-cols-3">
@@ -1622,7 +1622,7 @@ export default function Home() {
         <SectionHeader
           eyebrow="applied work"
           title="Projects framed by outcome, discipline, and proof."
-          text="The project experience is image-led and editorial, showing practical engineering work without making inflated claims."
+          text=""
         />
 
         <div className="grid gap-6">
@@ -1664,7 +1664,7 @@ export default function Home() {
           <SectionHeader
             eyebrow="commercial modeling"
             title="A luxury campaign archive, separate from the technical identity."
-            text="Modeling work is presented like a premium media reel library: visual, cinematic, brand-specific, and ready for future companies."
+            text=""
           />
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -1706,7 +1706,7 @@ export default function Home() {
           <SectionHeader
             eyebrow="certificate vault"
             title="Verified learning assets with recruiter-friendly clarity."
-            text="Certificates and achievements are designed as proof points: clean titles, issuer context, verification actions, and consistent visual rhythm."
+            text=""
           />
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -1746,7 +1746,7 @@ export default function Home() {
         <SectionHeader
           eyebrow="featured and public presence"
           title="Communication is part of the professional profile."
-          text="The media section now highlights the Al Rasheed TV interview with its image, channel identity, and direct start time at 2:10, plus seminars and awareness activities."
+          text=""
         />
 
         <div className="grid gap-5 lg:grid-cols-[1.04fr_0.96fr]">
