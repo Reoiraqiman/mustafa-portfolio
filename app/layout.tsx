@@ -31,7 +31,6 @@ export const metadata: Metadata = {
     "Mustafa Alzaidi Resume",
     "Mustafa Alzaidi Website",
     "Official Website of Mustafa Alzaidi",
-
     "مصطفى الزيدي",
     "مصطفى محمد حمزة",
     "مصطفى محمد الزيدي",
@@ -40,7 +39,6 @@ export const metadata: Metadata = {
     "بورتفوليو مصطفى الزيدي",
     "السيرة الذاتية مصطفى الزيدي",
     "الصفحة الشخصية مصطفى الزيدي",
-
     "Cybersecurity Engineering Student",
     "Cybersecurity Student",
     "Cybersecurity",
@@ -49,18 +47,15 @@ export const metadata: Metadata = {
     "Ethical Hacking",
     "Network Security",
     "Cyber Threat Management",
-
     "طالب أمن سيبراني",
     "هندسة الأمن السيبراني",
     "تقنيات الأمن السيبراني",
     "الأمن السيبراني",
     "طالب هندسة تقنيات الأمن السيبراني",
-
     "Al-Mashriq University",
     "Mashriq University",
     "جامعة المشرق",
     "طالب جامعة المشرق",
-
     "Cisco Certifications",
     "Cisco Badge",
     "Cisco Networking Academy",
@@ -70,20 +65,16 @@ export const metadata: Metadata = {
     "Cyber Threat Management Cisco",
     "Introduction to Data Science",
     "Introduction to IoT",
-
     "CompTIA Security+",
     "Alison Certificate",
-
     "Otto Robot",
     "Arduino Nano",
     "Logic Kit",
     "Digital Design Project",
     "Cybersecurity Project",
-
     "Al Rasheed TV",
     "HEPIQ",
     "HEPIQ Platform",
-
     "Commercial Model",
     "Video Model",
     "Advertising Model",
@@ -91,7 +82,6 @@ export const metadata: Metadata = {
     "Careem",
     "Doritos",
     "Saj Al Reef",
-
     "Personal Website",
     "Professional Portfolio",
     "Student Portfolio",
@@ -105,6 +95,18 @@ export const metadata: Metadata = {
     canonical: "https://mustafaalzaidi.com",
   },
 
+  icons: {
+    icon: [
+      {
+        url: "/icon.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
+
   openGraph: {
     title:
       "Mustafa Alzaidi | Cybersecurity Engineering Student & Commercial Model",
@@ -114,6 +116,14 @@ export const metadata: Metadata = {
     siteName: "Mustafa Alzaidi Portfolio",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/icon.png",
+        width: 512,
+        height: 512,
+        alt: "Mustafa Alzaidi",
+      },
+    ],
   },
 
   twitter: {
@@ -122,6 +132,7 @@ export const metadata: Metadata = {
       "Mustafa Alzaidi | Cybersecurity Engineering Student & Commercial Model",
     description:
       "Official portfolio of Mustafa Alzaidi featuring cybersecurity projects, certifications, media appearances, and commercial campaigns.",
+    images: ["/icon.png"],
   },
 
   robots: {
@@ -154,6 +165,7 @@ const personSchema = {
   ],
 
   url: "https://mustafaalzaidi.com",
+  image: "https://mustafaalzaidi.com/icon.png",
 
   jobTitle: "Cybersecurity Engineering Student | Commercial Model",
 
