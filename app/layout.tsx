@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   keywords: [
     "Mustafa Alzaidi",
     "Mustafa Mohammed Hamzah",
+    "Mustafa Mohammed Alzaidi",
+    "Mustafa Mohammed Hamzah Alzaidi",
+    "Mostafa Mohammed Hamzah",
     "Mustafa Alzaidi Portfolio",
     "Mustafa Alzaidi CV",
     "Mustafa Alzaidi Resume",
@@ -30,6 +33,8 @@ export const metadata: Metadata = {
 
     "مصطفى الزيدي",
     "مصطفى محمد حمزة",
+    "مصطفى محمد الزيدي",
+    "مصطفى محمد حمزة الزيدي",
     "موقع مصطفى الزيدي",
     "بورتفوليو مصطفى الزيدي",
     "السيرة الذاتية مصطفى الزيدي",
@@ -133,6 +138,60 @@ export const metadata: Metadata = {
   category: "portfolio",
 };
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+
+  name: "Mustafa Alzaidi",
+
+  alternateName: [
+    "Mustafa Mohammed Alzaidi",
+    "Mustafa Mohammed Hamzah Alzaidi",
+    "Mostafa Mohammed Hamzah",
+    "مصطفى الزيدي",
+    "مصطفى محمد حمزة",
+  ],
+
+  url: "https://mustafaalzaidi.com",
+
+  jobTitle: "Cybersecurity Engineering Student | Commercial Model",
+
+  description:
+    "Mustafa Alzaidi is a Cybersecurity Engineering Student at Al-Mashriq University in Baghdad, Iraq, and a Commercial Video Model.",
+
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Al-Mashriq University",
+    sameAs: "https://uom.edu.iq",
+  },
+
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Baghdad",
+    addressRegion: "Baghdad Governorate",
+    addressCountry: "Iraq",
+  },
+
+  knowsAbout: [
+    "Cybersecurity",
+    "Cybersecurity Engineering",
+    "Information Security",
+    "Ethical Hacking",
+    "Network Security",
+    "Digital Design",
+    "Arduino Projects",
+    "Commercial Modeling",
+    "Brand Campaigns",
+  ],
+
+  sameAs: [
+    "https://www.linkedin.com/in/mostafa-mohammed-hamzah-bb4870354",
+    "https://github.com/reoiraqiman",
+    "https://www.instagram.com/_20n",
+    "https://www.credly.com/users/mustafa-mohmmed-hmaza/badges",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -141,6 +200,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema),
+          }}
+        />
         {children}
       </body>
     </html>
