@@ -15,7 +15,8 @@ export default async function ArticlePage({
 
   const related = getAllArticles()
     .filter((item) => item.slug !== slug)
-    .slice(0, 3);
+    .filter((item) => item.category === article.category)
+    .slice(0, 6);
 
   return (
     <main className="min-h-screen bg-[#020617] text-white">
@@ -127,7 +128,9 @@ export default async function ArticlePage({
                 ),
                 li: ({ children }) => <li>{children}</li>,
                 strong: ({ children }) => (
-                  <strong className="font-black text-slate-950">{children}</strong>
+                  <strong className="font-black text-slate-950">
+                    {children}
+                  </strong>
                 ),
               }}
             >
@@ -159,11 +162,13 @@ export default async function ArticlePage({
                   </p>
 
                   <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300">
-                    Mustafa Alzaidi is a Cybersecurity Engineering student focused on
-                    cybersecurity careers, security awareness, artificial intelligence,
-                    programming, and practical digital tools. This publication supports
-                    his main portfolio by documenting research, technical learning, and
-                    practical resources for students, developers, and cybersecurity beginners.
+                    Mustafa Alzaidi is a Cybersecurity Engineering student
+                    focused on cybersecurity careers, security awareness,
+                    artificial intelligence, programming, and practical digital
+                    tools. This publication supports his main portfolio by
+                    documenting research, technical learning, and practical
+                    resources for students, developers, and cybersecurity
+                    beginners.
                   </p>
 
                   <div className="mt-8 flex flex-wrap gap-3">
@@ -211,7 +216,7 @@ export default async function ArticlePage({
               Related articles
             </h2>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {related.map((item) => (
                 <Link
                   key={item.slug}
