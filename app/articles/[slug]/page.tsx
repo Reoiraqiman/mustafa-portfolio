@@ -1,209 +1,267 @@
-import { getArticleBySlug, getAllArticles } from "@/data/articles";
-import { notFound } from "next/navigation";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
+import { getAllArticles } from "@/data/articles";
 
-export default async function ArticlePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
+const trendingTopics = [
+  "Cybersecurity Careers",
+  "AI Security",
+  "Certifications",
+  "Remote Security Jobs",
+  "Penetration Testing",
+];
 
-  if (!article) notFound();
-
-  const related = getAllArticles()
-    .filter((item) => item.slug !== slug)
-    .slice(0, 3);
+export default function ArticlesPage() {
+  const articles = getAllArticles();
+  const featured = articles[0];
+  const latest = articles.slice(1, 7);
+  const more = articles.slice(7);
 
   return (
-    <main className="min-h-screen bg-[#fbfaf7] text-[#111111]">
-      <nav className="border-b border-black/10 bg-[#fbfaf7]/90 backdrop-blur">
+    <main className="min-h-screen bg-[#f4f7fb] text-[#0b1220]">
+      <nav className="border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <Link href="/" className="text-sm font-semibold tracking-tight">
+          <Link href="/" className="text-sm font-bold tracking-tight">
             Mustafa Alzaidi
           </Link>
 
-          <div className="flex items-center gap-6 text-sm text-neutral-600">
-            <Link href="/" className="hover:text-black">Home</Link>
-            <Link href="/articles" className="font-medium text-black">Articles</Link>
-            <Link href="/about" className="hover:text-black">About</Link>
-            <Link href="/contact" className="hover:text-black">Contact</Link>
-            <Link href="/privacy-policy" className="hover:text-black">Privacy</Link>
+          <div className="flex items-center gap-5 text-sm text-slate-600">
+            <Link href="/" className="hover:text-slate-950">Portfolio</Link>
+            <Link href="/articles" className="font-semibold text-slate-950">Articles</Link>
+            <Link href="/about" className="hover:text-slate-950">About</Link>
+            <Link href="/contact" className="hover:text-slate-950">Contact</Link>
+            <Link href="/privacy-policy" className="hover:text-slate-950">Privacy</Link>
           </div>
         </div>
       </nav>
 
-      <article>
-        <header className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-            <div>
-              <Link
-                href="/articles"
-                className="text-sm font-medium text-neutral-500 hover:text-black"
-              >
-                ← Back to articles
-              </Link>
+      <section className="border-b border-slate-200 bg-[#07111f] text-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
+              Security Intelligence
+            </p>
 
-              <p className="mt-12 text-sm font-medium uppercase tracking-[0.28em] text-neutral-500">
-                {article.category}
-              </p>
+            <h1 className="mt-6 max-w-4xl text-5xl font-bold leading-[1] tracking-[-0.05em] md:text-7xl">
+              Cybersecurity, AI, and technology insights.
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+              Practical articles for students, developers, and security beginners.
+              Built as part of Mustafa Alzaidi’s personal portfolio and technology publication.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+              Trending Topics
+            </p>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              {trendingTopics.map((topic) => (
+                <span
+                  key={topic}
+                  className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-slate-200"
+                >
+                  {topic}
+                </span>
+              ))}
             </div>
 
-            <div>
-              <h1 className="text-5xl font-semibold leading-[1] tracking-[-0.06em] md:text-7xl">
-                {article.title}
-              </h1>
+            <p className="mt-6 text-sm leading-7 text-slate-400">
+              Career guides, security skills, certifications, AI tools, and practical learning resources.
+            </p>
+          </div>
+        </div>
+      </section>
 
-              <p className="mt-7 max-w-3xl text-xl leading-9 text-neutral-600">
-                {article.description}
-              </p>
+      <section className="mx-auto max-w-7xl px-6 py-14">
+        {featured && (
+          <Link
+            href={`/articles/${featured.slug}`}
+            className="group grid overflow-hidden rounded-[30px] border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.10)] transition hover:-translate-y-1 hover:shadow-[0_34px_100px_rgba(15,23,42,0.16)] lg:grid-cols-[1.15fr_0.85fr]"
+          >
+            <div className="relative min-h-[380px] bg-slate-950">
+              {featured.image ? (
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                  className="h-full min-h-[380px] w-full object-cover"
+                />
+              ) : (
+                <div className="h-full min-h-[380px] bg-slate-900" />
+              )}
 
-              <div className="mt-8 flex flex-wrap gap-3 text-sm text-neutral-500">
-                <span>{article.date}</span>
-                <span>·</span>
-                <span>{article.author}</span>
-                <span>·</span>
-                <span>8 min read</span>
+              <div className="absolute left-6 top-6 rounded-full bg-cyan-300 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-slate-950">
+                Featured
               </div>
             </div>
-          </div>
-        </header>
 
-        <div className="mx-auto max-w-7xl px-6">
-          {article.image ? (
-            <img
-              src={article.image}
-              alt={article.title}
-              className="h-[520px] w-full rounded-[34px] border border-black/10 object-cover shadow-[0_24px_80px_rgba(0,0,0,0.10)]"
-            />
-          ) : (
-            <div className="relative h-[520px] overflow-hidden rounded-[34px] bg-[#111]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_22%,rgba(255,255,255,0.85),transparent_14%),radial-gradient(circle_at_80%_65%,rgba(255,255,255,0.2),transparent_20%),linear-gradient(135deg,#111,#222_55%,#e8e2d6)]" />
-              <div className="absolute inset-8 rounded-[28px] border border-white/15" />
-              <div className="absolute bottom-8 left-8">
-                <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-black">
-                  {article.category}
+            <div className="flex flex-col justify-between p-8 md:p-10">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-700">
+                  {featured.category}
+                </p>
+
+                <h2 className="mt-5 text-4xl font-bold leading-tight tracking-[-0.04em] text-slate-950 md:text-5xl">
+                  {featured.title}
+                </h2>
+
+                <p className="mt-5 text-lg leading-8 text-slate-600">
+                  {featured.description}
+                </p>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between border-t border-slate-200 pt-6 text-sm">
+                <span className="text-slate-500">
+                  {featured.date} · {featured.author}
+                </span>
+                <span className="font-bold text-slate-950 group-hover:text-cyan-700">
+                  Read analysis →
                 </span>
               </div>
             </div>
-          )}
-        </div>
+          </Link>
+        )}
 
-        <section className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[240px_minmax(0,760px)_1fr]">
-          <aside className="hidden lg:block">
-            <div className="sticky top-8 border-t border-black/10 pt-6 text-sm text-neutral-500">
-              <p className="font-medium text-black">Article</p>
-              <p className="mt-3 leading-6">{article.title}</p>
-            </div>
-          </aside>
-
-          <div className="min-w-0">
-            <ReactMarkdown
-              components={{
-                h1: ({ children }) => (
-                  <h1 className="mb-7 mt-14 text-4xl font-semibold leading-tight tracking-[-0.04em]">
-                    {children}
-                  </h1>
-                ),
-                h2: ({ children }) => (
-                  <h2 className="mb-5 mt-16 text-3xl font-semibold leading-tight tracking-[-0.035em]">
-                    {children}
-                  </h2>
-                ),
-                h3: ({ children }) => (
-                  <h3 className="mb-4 mt-10 text-2xl font-semibold tracking-[-0.02em]">
-                    {children}
-                  </h3>
-                ),
-                p: ({ children }) => (
-                  <p className="mb-7 text-[19px] leading-9 text-neutral-700">
-                    {children}
-                  </p>
-                ),
-                ul: ({ children }) => (
-                  <ul className="mb-8 ml-6 list-disc space-y-3 text-[19px] leading-9 text-neutral-700">
-                    {children}
-                  </ul>
-                ),
-                ol: ({ children }) => (
-                  <ol className="mb-8 ml-6 list-decimal space-y-3 text-[19px] leading-9 text-neutral-700">
-                    {children}
-                  </ol>
-                ),
-                li: ({ children }) => <li>{children}</li>,
-                strong: ({ children }) => (
-                  <strong className="font-semibold text-black">
-                    {children}
-                  </strong>
-                ),
-                blockquote: ({ children }) => (
-                  <blockquote className="my-10 border-l-4 border-black pl-6 text-xl leading-9 text-neutral-800">
-                    {children}
-                  </blockquote>
-                ),
-                table: ({ children }) => (
-                  <div className="my-10 overflow-hidden rounded-2xl border border-black/10 bg-white">
-                    <table className="w-full border-collapse text-left text-sm">
-                      {children}
-                    </table>
-                  </div>
-                ),
-                th: ({ children }) => (
-                  <th className="border-b border-black/10 bg-neutral-100 px-4 py-3 font-semibold">
-                    {children}
-                  </th>
-                ),
-                td: ({ children }) => (
-                  <td className="border-b border-black/5 px-4 py-3 text-neutral-700">
-                    {children}
-                  </td>
-                ),
-              }}
-            >
-              {article.content}
-            </ReactMarkdown>
-          </div>
-
-          <aside className="hidden xl:block">
-            <div className="sticky top-8 rounded-2xl border border-black/10 bg-white p-5">
-              <p className="text-sm font-medium text-black">Written by</p>
-              <p className="mt-2 text-sm text-neutral-600">{article.author}</p>
-              <div className="mt-5 border-t border-black/10 pt-5 text-sm text-neutral-500">
-                Practical technology notes for students, developers and modern
-                digital users.
+        <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_330px]">
+          <section>
+            <div className="mb-6 flex items-end justify-between border-b border-slate-200 pb-5">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-700">
+                  Latest Intelligence
+                </p>
+                <h2 className="mt-2 text-3xl font-bold tracking-[-0.03em]">
+                  New articles
+                </h2>
               </div>
             </div>
-          </aside>
-        </section>
 
-        {related.length > 0 && (
-          <section className="mx-auto max-w-7xl border-t border-black/10 px-6 py-16">
-            <h2 className="text-3xl font-semibold tracking-[-0.03em]">
-              Related articles
-            </h2>
-
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-              {related.map((item) => (
+            <div className="grid gap-6 md:grid-cols-2">
+              {latest.map((article) => (
                 <Link
-                  key={item.slug}
-                  href={`/articles/${item.slug}`}
-                  className="rounded-2xl border border-black/10 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg"
+                  key={article.slug}
+                  href={`/articles/${article.slug}`}
+                  className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <p className="text-sm text-neutral-500">{item.category}</p>
-                  <h3 className="mt-4 text-xl font-semibold leading-tight">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 text-sm leading-6 text-neutral-600">
-                    {item.description}
-                  </p>
+                  {article.image && (
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="h-48 w-full object-cover"
+                    />
+                  )}
+
+                  <div className="p-6">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">
+                      {article.category}
+                    </p>
+
+                    <h3 className="mt-4 text-2xl font-bold leading-tight tracking-[-0.03em] group-hover:text-cyan-700">
+                      {article.title}
+                    </h3>
+
+                    <p className="mt-4 text-sm leading-7 text-slate-600">
+                      {article.description}
+                    </p>
+
+                    <div className="mt-6 flex items-center justify-between text-sm">
+                      <span className="text-slate-500">{article.date}</span>
+                      <span className="font-bold text-slate-950">Read →</span>
+                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
+
+            <div className="mt-14">
+              <h2 className="border-b border-slate-200 pb-5 text-3xl font-bold tracking-[-0.03em]">
+                More articles
+              </h2>
+
+              <div className="divide-y divide-slate-200">
+                {more.map((article) => (
+                  <Link
+                    key={article.slug}
+                    href={`/articles/${article.slug}`}
+                    className="grid gap-5 py-7 transition hover:bg-white md:grid-cols-[170px_1fr]"
+                  >
+                    {article.image ? (
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="h-28 w-full rounded-xl object-cover"
+                      />
+                    ) : (
+                      <div className="h-28 rounded-xl bg-slate-200" />
+                    )}
+
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">
+                        {article.category}
+                      </p>
+
+                      <h3 className="mt-2 text-2xl font-bold leading-tight tracking-[-0.03em]">
+                        {article.title}
+                      </h3>
+
+                      <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
+                        {article.description}
+                      </p>
+
+                      <p className="mt-4 text-sm font-semibold text-slate-500">
+                        {article.date} · Read →
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </section>
-        )}
-      </article>
+
+          <aside className="space-y-6">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-700">
+                About this section
+              </p>
+
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                This articles section is part of Mustafa Alzaidi’s portfolio,
+                focused on cybersecurity careers, AI tools, certifications, and practical technology education.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-[#07111f] p-6 text-white shadow-sm">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
+                Key Areas
+              </p>
+
+              <div className="mt-5 space-y-3 text-sm text-slate-300">
+                <p>Cybersecurity Careers</p>
+                <p>Security Certifications</p>
+                <p>AI Tools</p>
+                <p>Programming Resources</p>
+                <p>Beginner Roadmaps</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-700">
+                Portfolio
+              </p>
+
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                The main website remains a personal portfolio. Articles support the portfolio by showing technical knowledge and research ability.
+              </p>
+
+              <Link
+                href="/"
+                className="mt-5 inline-block text-sm font-bold text-slate-950 hover:text-cyan-700"
+              >
+                View portfolio →
+              </Link>
+            </div>
+          </aside>
+        </div>
+      </section>
     </main>
   );
 }
