@@ -13,6 +13,8 @@ export default function PrivacyPolicyPage() {
             <Link href="/" className="hover:text-black">Home</Link>
             <Link href="/articles" className="hover:text-black">Articles</Link>
             <Link href="/about" className="hover:text-black">About</Link>
+            <Link href="/contact" className="hover:text-black">Contact</Link>
+            <Link href="/privacy-policy" className="font-medium text-black">Privacy</Link>
           </div>
         </div>
       </nav>
@@ -126,8 +128,8 @@ export default function PrivacyPolicyPage() {
                 Contact
               </h2>
               <p className="mt-4 text-lg leading-9 text-[#515154]">
-                For privacy-related questions, please use the contact section on
-                the website or visit the contact page when available.
+                For privacy-related questions, please contact the website owner
+                through the contact page.
               </p>
             </section>
           </div>
