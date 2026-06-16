@@ -15,12 +15,11 @@ export default function ArticlesPage() {
           </Link>
 
           <div className="flex items-center gap-6 text-sm text-neutral-600">
-            <Link href="/" className="hover:text-black">
-              Home
-            </Link>
-            <Link href="/articles" className="font-medium text-black">
-              Articles
-            </Link>
+            <Link href="/" className="hover:text-black">Home</Link>
+            <Link href="/articles" className="font-medium text-black">Articles</Link>
+            <Link href="/about" className="hover:text-black">About</Link>
+            <Link href="/contact" className="hover:text-black">Contact</Link>
+            <Link href="/privacy-policy" className="hover:text-black">Privacy</Link>
           </div>
         </div>
       </nav>
@@ -59,23 +58,23 @@ export default function ArticlesPage() {
               href={`/articles/${featured.slug}`}
               className="group grid overflow-hidden rounded-[32px] border border-black/10 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_34px_100px_rgba(0,0,0,0.12)] lg:grid-cols-[1.05fr_0.95fr]"
             >
-              <div className="relative min-h-[420px] overflow-hidden bg-[#111]">
-  {featured.image ? (
-    <img
-      src={featured.image}
-      alt={featured.title}
-      className="h-full min-h-[420px] w-full object-contain bg-[#0b1f26]"
-    />
-  ) : (
-    <div className="h-full min-h-[420px] w-full bg-neutral-900" />
-  )}
+              <div className="relative min-h-[420px] overflow-hidden bg-[#0b1f26]">
+                {featured.image ? (
+                  <img
+                    src={featured.image}
+                    alt={featured.title}
+                    className="h-full min-h-[420px] w-full object-contain"
+                  />
+                ) : (
+                  <div className="h-full min-h-[420px] w-full bg-neutral-900" />
+                )}
 
-  <div className="absolute bottom-8 left-8">
-    <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-black shadow-sm">
-      {featured.category}
-    </span>
-  </div>
-</div>
+                <div className="absolute bottom-8 left-8">
+                  <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-black shadow-sm">
+                    {featured.category}
+                  </span>
+                </div>
+              </div>
 
               <div className="flex min-h-[420px] flex-col justify-between p-8 md:p-12">
                 <div>
