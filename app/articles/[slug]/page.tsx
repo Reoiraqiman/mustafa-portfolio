@@ -26,12 +26,11 @@ export default async function ArticlePage({
           </Link>
 
           <div className="flex items-center gap-6 text-sm text-neutral-600">
-            <Link href="/" className="hover:text-black">
-              Home
-            </Link>
-            <Link href="/articles" className="font-medium text-black">
-              Articles
-            </Link>
+            <Link href="/" className="hover:text-black">Home</Link>
+            <Link href="/articles" className="font-medium text-black">Articles</Link>
+            <Link href="/about" className="hover:text-black">About</Link>
+            <Link href="/contact" className="hover:text-black">Contact</Link>
+            <Link href="/privacy-policy" className="hover:text-black">Privacy</Link>
           </div>
         </div>
       </nav>
