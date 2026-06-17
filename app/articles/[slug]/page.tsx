@@ -3,12 +3,52 @@ import { getArticleBySlug, getAllArticles } from "@/data/articles";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import type { ReactNode } from "react";
 
 const siteUrl = "https://mustafaalzaidi.com";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
+
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
+}
+
+function cleanHeading(text: string) {
+  return text.replace(/[*_`#]/g, "").trim();
+}
+
+function getHeadings(content: string) {
+  const matches = Array.from(content.matchAll(/^(##|###)\s+(.+)$/gm));
+
+  return matches.map((match) => {
+    const level = match[1] === "##" ? 2 : 3;
+    const text = cleanHeading(match[2]);
+
+    return {
+      level,
+      text,
+      id: slugify(text),
+    };
+  });
+}
+
+function getTextFromChildren(children: ReactNode): string {
+  if (typeof children === "string") return children;
+  if (typeof children === "number") return String(children);
+
+  if (Array.isArray(children)) {
+    return children.map(getTextFromChildren).join("");
+  }
+
+  return "";
+}
 
 export async function generateMetadata({
   params,
@@ -18,7 +58,7 @@ export async function generateMetadata({
 
   if (!article) {
     return {
-      title: "Article Not Found | Mustafa Alzaidi",
+      title: "Article Not Found",
       description: "The requested article could not be found.",
       robots: {
         index: false,
@@ -34,13 +74,12 @@ export async function generateMetadata({
       : `${siteUrl}${article.image}`
     : `${siteUrl}/icon.png`;
 
-  const title = `${article.title} | Mustafa Alzaidi`;
   const description =
     article.description ||
     "Practical cybersecurity, AI, programming, and technology article by Mustafa Alzaidi.";
 
   return {
-    title,
+    title: article.title,
     description,
     authors: [{ name: article.author || "Mustafa Alzaidi", url: siteUrl }],
     creator: "Mustafa Alzaidi",
@@ -116,6 +155,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     .filter((item) => item.category === article.category)
     .slice(0, 6);
 
+  const headings = getHeadings(article.content);
+
   const articleUrl = `${siteUrl}/articles/${slug}`;
   const imageUrl = article.image
     ? article.image.startsWith("http")
@@ -125,32 +166,59 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.description,
-    image: [imageUrl],
-    datePublished: article.date,
-    dateModified: article.date,
-    author: {
-      "@type": "Person",
-      name: article.author || "Mustafa Alzaidi",
-      url: siteUrl,
-      sameAs: [
-        "https://www.linkedin.com/in/mostafa-mohammed-hamzah-bb4870354/",
-        "https://github.com/Reoiraqiman",
-      ],
-    },
-    publisher: {
-      "@type": "Person",
-      name: "Mustafa Alzaidi",
-      url: siteUrl,
-      image: `${siteUrl}/icon.png`,
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": articleUrl,
-    },
-    articleSection: article.category,
+    "@graph": [
+      {
+        "@type": "Article",
+        headline: article.title,
+        description: article.description,
+        image: [imageUrl],
+        datePublished: article.date,
+        dateModified: article.date,
+        author: {
+          "@type": "Person",
+          name: article.author || "Mustafa Alzaidi",
+          url: siteUrl,
+          sameAs: [
+            "https://www.linkedin.com/in/mostafa-mohammed-hamzah-bb4870354/",
+            "https://github.com/Reoiraqiman",
+          ],
+        },
+        publisher: {
+          "@type": "Person",
+          name: "Mustafa Alzaidi",
+          url: siteUrl,
+          image: `${siteUrl}/icon.png`,
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": articleUrl,
+        },
+        articleSection: article.category,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Articles",
+            item: `${siteUrl}/articles`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: article.title,
+            item: articleUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -169,11 +237,24 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </Link>
 
           <div className="flex items-center gap-4 overflow-x-auto text-xs font-bold text-slate-300 md:text-sm">
-            <Link href="/" className="whitespace-nowrap hover:text-white">Portfolio</Link>
-            <Link href="/articles" className="whitespace-nowrap text-cyan-300">Articles</Link>
-            <Link href="/about" className="whitespace-nowrap hover:text-white">About</Link>
-            <Link href="/contact" className="whitespace-nowrap hover:text-white">Contact</Link>
-            <Link href="/privacy-policy" className="whitespace-nowrap hover:text-white">Privacy</Link>
+            <Link href="/" className="whitespace-nowrap hover:text-white">
+              Portfolio
+            </Link>
+            <Link href="/articles" className="whitespace-nowrap text-cyan-300">
+              Articles
+            </Link>
+            <Link href="/about" className="whitespace-nowrap hover:text-white">
+              About
+            </Link>
+            <Link href="/contact" className="whitespace-nowrap hover:text-white">
+              Contact
+            </Link>
+            <Link
+              href="/privacy-policy"
+              className="whitespace-nowrap hover:text-white"
+            >
+              Privacy
+            </Link>
           </div>
         </div>
       </nav>
@@ -181,14 +262,19 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <article>
         <header className="bg-[#020617] text-white">
           <div className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-20">
-            <Link
-              href="/articles"
-              className="text-sm font-bold text-slate-400 hover:text-white"
-            >
-              ← Back to articles
-            </Link>
+            <div className="mb-8 flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400">
+              <Link href="/" className="hover:text-white">
+                Home
+              </Link>
+              <span>/</span>
+              <Link href="/articles" className="hover:text-white">
+                Articles
+              </Link>
+              <span>/</span>
+              <span className="text-cyan-300">{article.category}</span>
+            </div>
 
-            <p className="mt-8 text-xs font-black uppercase tracking-[0.24em] text-cyan-300">
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-300">
               {article.category}
             </p>
 
@@ -222,15 +308,61 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           )}
         </div>
 
-        <section className="mx-auto grid max-w-7xl gap-8 px-4 py-6 md:px-6 md:py-10 lg:grid-cols-[220px_minmax(0,780px)_1fr]">
+        <section className="mx-auto grid max-w-7xl gap-8 px-4 py-6 md:px-6 md:py-10 lg:grid-cols-[240px_minmax(0,780px)_1fr]">
           <aside className="hidden lg:block">
-            <div className="sticky top-28 border-t border-slate-300 pt-6 text-sm text-slate-500">
-              <p className="font-black text-slate-950">Article Brief</p>
-              <p className="mt-3 leading-6">{article.title}</p>
+            <div className="sticky top-28 space-y-6">
+              <div className="border-t border-slate-300 pt-6 text-sm text-slate-500">
+                <p className="font-black text-slate-950">Article Brief</p>
+                <p className="mt-3 leading-6">{article.title}</p>
+              </div>
+
+              {headings.length > 0 && (
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">
+                    Contents
+                  </p>
+
+                  <div className="mt-4 space-y-3 text-sm">
+                    {headings.map((heading) => (
+                      <a
+                        key={heading.id}
+                        href={`#${heading.id}`}
+                        className={`block leading-5 text-slate-600 hover:text-cyan-700 ${
+                          heading.level === 3 ? "pl-4" : "font-bold"
+                        }`}
+                      >
+                        {heading.text}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </aside>
 
           <div className="min-w-0 rounded-2xl bg-white px-5 py-2 text-slate-950 shadow-sm md:rounded-[32px] md:px-8 md:py-4">
+            {headings.length > 0 && (
+              <section className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 lg:hidden">
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-700">
+                  Contents
+                </p>
+
+                <div className="mt-4 space-y-3 text-sm">
+                  {headings.map((heading) => (
+                    <a
+                      key={heading.id}
+                      href={`#${heading.id}`}
+                      className={`block leading-5 text-slate-700 hover:text-cyan-700 ${
+                        heading.level === 3 ? "pl-4" : "font-bold"
+                      }`}
+                    >
+                      {heading.text}
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+
             <ReactMarkdown
               components={{
                 h1: ({ children }) => (
@@ -238,16 +370,28 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     {children}
                   </h1>
                 ),
-                h2: ({ children }) => (
-                  <h2 className="mb-4 mt-10 text-2xl font-black leading-tight tracking-[-0.025em] text-slate-950 md:mt-14 md:text-3xl">
-                    {children}
-                  </h2>
-                ),
-                h3: ({ children }) => (
-                  <h3 className="mb-3 mt-8 text-xl font-bold tracking-[-0.02em] text-slate-950 md:text-2xl">
-                    {children}
-                  </h3>
-                ),
+                h2: ({ children }) => {
+                  const text = getTextFromChildren(children);
+                  return (
+                    <h2
+                      id={slugify(text)}
+                      className="scroll-mt-28 mb-4 mt-10 text-2xl font-black leading-tight tracking-[-0.025em] text-slate-950 md:mt-14 md:text-3xl"
+                    >
+                      {children}
+                    </h2>
+                  );
+                },
+                h3: ({ children }) => {
+                  const text = getTextFromChildren(children);
+                  return (
+                    <h3
+                      id={slugify(text)}
+                      className="scroll-mt-28 mb-3 mt-8 text-xl font-bold tracking-[-0.02em] text-slate-950 md:text-2xl"
+                    >
+                      {children}
+                    </h3>
+                  );
+                },
                 p: ({ children }) => (
                   <p className="mb-5 text-[16px] leading-8 text-slate-700 md:text-[19px] md:leading-9">
                     {children}
