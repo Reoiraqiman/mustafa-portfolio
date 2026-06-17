@@ -31,6 +31,9 @@ export default async function ArticlePage({
             <Link href="/articles" className="whitespace-nowrap text-cyan-300">Articles</Link>
             <Link href="/about" className="whitespace-nowrap hover:text-white">About</Link>
             <Link href="/contact" className="whitespace-nowrap hover:text-white">Contact</Link>
+            <Link href="/privacy-policy" className="whitespace-nowrap hover:text-white">
+  Privacy
+</Link>
           </div>
         </div>
       </nav>
