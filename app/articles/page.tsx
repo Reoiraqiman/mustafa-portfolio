@@ -1,5 +1,52 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllArticles } from "@/data/articles";
+
+const siteUrl = "https://mustafaalzaidi.com";
+
+export const metadata: Metadata = {
+  title: "Cybersecurity & AI Articles | Mustafa Alzaidi",
+  description:
+    "Practical articles about cybersecurity careers, AI tools, certifications, programming, and digital security by Mustafa Alzaidi.",
+  alternates: {
+    canonical: `${siteUrl}/articles`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    title: "Cybersecurity & AI Articles | Mustafa Alzaidi",
+    description:
+      "Cybersecurity research, AI tools, career guides, certifications, and practical technology articles.",
+    url: `${siteUrl}/articles`,
+    siteName: "Mustafa Alzaidi",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: `${siteUrl}/icon.png`,
+        width: 512,
+        height: 512,
+        alt: "Mustafa Alzaidi Articles",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cybersecurity & AI Articles | Mustafa Alzaidi",
+    description:
+      "Cybersecurity research, AI tools, career guides, certifications, and practical technology articles.",
+    images: [`${siteUrl}/icon.png`],
+  },
+};
 
 const categories = ["Cybersecurity", "AI", "Careers", "Certifications", "Projects"];
 
@@ -22,9 +69,7 @@ export default function ArticlesPage() {
             <Link href="/articles" className="whitespace-nowrap text-cyan-300">Articles</Link>
             <Link href="/about" className="whitespace-nowrap hover:text-white">About</Link>
             <Link href="/contact" className="whitespace-nowrap hover:text-white">Contact</Link>
-            <Link href="/privacy-policy" className="whitespace-nowrap hover:text-white">
-  Privacy
-</Link>
+            <Link href="/privacy-policy" className="whitespace-nowrap hover:text-white">Privacy</Link>
           </div>
         </div>
       </nav>

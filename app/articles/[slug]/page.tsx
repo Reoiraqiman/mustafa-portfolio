@@ -1,13 +1,111 @@
+import type { Metadata } from "next";
 import { getArticleBySlug, getAllArticles } from "@/data/articles";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
-export default async function ArticlePage({
-  params,
-}: {
+const siteUrl = "https://mustafaalzaidi.com";
+
+type ArticlePageProps = {
   params: Promise<{ slug: string }>;
-}) {
+};
+
+export async function generateMetadata({
+  params,
+}: ArticlePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
+
+  if (!article) {
+    return {
+      title: "Article Not Found | Mustafa Alzaidi",
+      description: "The requested article could not be found.",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const articleUrl = `${siteUrl}/articles/${slug}`;
+  const imageUrl = article.image
+    ? article.image.startsWith("http")
+      ? article.image
+      : `${siteUrl}${article.image}`
+    : `${siteUrl}/icon.png`;
+
+  const title = `${article.title} | Mustafa Alzaidi`;
+  const description =
+    article.description ||
+    "Practical cybersecurity, AI, programming, and technology article by Mustafa Alzaidi.";
+
+  return {
+    title,
+    description,
+    authors: [{ name: article.author || "Mustafa Alzaidi", url: siteUrl }],
+    creator: "Mustafa Alzaidi",
+    publisher: "Mustafa Alzaidi",
+    category: article.category || "Technology",
+    keywords: [
+      article.title,
+      article.category,
+      "Mustafa Alzaidi",
+      "Cybersecurity",
+      "AI",
+      "Programming",
+      "Technology",
+      "Cybersecurity Careers",
+      "Cybersecurity Certifications",
+      "Security Awareness",
+    ],
+    alternates: {
+      canonical: articleUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
+    openGraph: {
+      title: article.title,
+      description,
+      url: articleUrl,
+      siteName: "Mustafa Alzaidi",
+      type: "article",
+      locale: "en_US",
+      publishedTime: article.date
+        ? new Date(article.date).toISOString()
+        : undefined,
+      modifiedTime: article.date
+        ? new Date(article.date).toISOString()
+        : undefined,
+      section: article.category || "Technology",
+      authors: [siteUrl],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description,
+      images: [imageUrl],
+    },
+  };
+}
+
+export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
 
@@ -18,8 +116,52 @@ export default async function ArticlePage({
     .filter((item) => item.category === article.category)
     .slice(0, 6);
 
+  const articleUrl = `${siteUrl}/articles/${slug}`;
+  const imageUrl = article.image
+    ? article.image.startsWith("http")
+      ? article.image
+      : `${siteUrl}${article.image}`
+    : `${siteUrl}/icon.png`;
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.description,
+    image: [imageUrl],
+    datePublished: article.date,
+    dateModified: article.date,
+    author: {
+      "@type": "Person",
+      name: article.author || "Mustafa Alzaidi",
+      url: siteUrl,
+      sameAs: [
+        "https://www.linkedin.com/in/mostafa-mohammed-hamzah-bb4870354/",
+        "https://github.com/Reoiraqiman",
+      ],
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Mustafa Alzaidi",
+      url: siteUrl,
+      image: `${siteUrl}/icon.png`,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
+    articleSection: article.category,
+  };
+
   return (
     <main className="min-h-screen bg-[#f5f7fb] text-slate-950">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema),
+        }}
+      />
+
       <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#020617] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
           <Link href="/" className="text-sm font-black">
@@ -31,9 +173,7 @@ export default async function ArticlePage({
             <Link href="/articles" className="whitespace-nowrap text-cyan-300">Articles</Link>
             <Link href="/about" className="whitespace-nowrap hover:text-white">About</Link>
             <Link href="/contact" className="whitespace-nowrap hover:text-white">Contact</Link>
-            <Link href="/privacy-policy" className="whitespace-nowrap hover:text-white">
-  Privacy
-</Link>
+            <Link href="/privacy-policy" className="whitespace-nowrap hover:text-white">Privacy</Link>
           </div>
         </div>
       </nav>
