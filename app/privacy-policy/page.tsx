@@ -2,137 +2,72 @@ import Link from "next/link";
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f]">
-      <nav className="border-b border-black/10 bg-white/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-sm font-semibold">
-            Mustafa Alzaidi
-          </Link>
+    <main className="min-h-screen bg-[#f5f7fb] text-slate-950">
+      <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#020617] text-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
+          <Link href="/" className="text-sm font-black">Mustafa Alzaidi</Link>
 
-          <div className="flex items-center gap-6 text-sm text-[#6e6e73]">
-            <Link href="/" className="hover:text-black">Home</Link>
-            <Link href="/articles" className="hover:text-black">Articles</Link>
-            <Link href="/about" className="hover:text-black">About</Link>
-            <Link href="/contact" className="hover:text-black">Contact</Link>
-            <Link href="/privacy-policy" className="font-medium text-black">Privacy</Link>
+          <div className="flex items-center gap-4 overflow-x-auto text-xs font-bold text-slate-300 md:text-sm">
+            <Link href="/" className="whitespace-nowrap hover:text-white">Portfolio</Link>
+            <Link href="/articles" className="whitespace-nowrap hover:text-white">Articles</Link>
+            <Link href="/about" className="whitespace-nowrap hover:text-white">About</Link>
+            <Link href="/contact" className="whitespace-nowrap hover:text-white">Contact</Link>
+            <Link href="/privacy-policy" className="whitespace-nowrap text-cyan-300">Privacy</Link>
           </div>
         </div>
       </nav>
 
-      <section className="mx-auto max-w-5xl px-6 py-24">
-        <div className="text-center">
-          <p className="text-sm font-medium uppercase tracking-[0.28em] text-[#86868b]">
-            Legal
+      <section className="bg-[#020617] text-white">
+        <div className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-20">
+          <p className="text-xs font-black uppercase tracking-[0.28em] text-cyan-300">
+            Privacy Policy
           </p>
 
-          <h1 className="mt-6 text-5xl font-semibold tracking-[-0.04em] md:text-7xl">
+          <h1 className="mt-5 max-w-4xl text-4xl font-black leading-[1.05] tracking-[-0.04em] md:text-7xl">
             Privacy Policy
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-xl leading-8 text-[#6e6e73]">
-            This page explains how information may be collected, used, and
-            protected when visitors use Mustafa Alzaidi’s website.
-          </p>
-
-          <p className="mt-6 text-sm text-[#86868b]">
-            Last updated: June 2026
+          <p className="mt-5 max-w-3xl text-base leading-7 text-slate-300 md:text-xl md:leading-9">
+            This page explains how information may be handled when using mustafaalzaidi.com.
           </p>
         </div>
+      </section>
 
-        <div className="mt-20 rounded-[32px] bg-white p-8 shadow-[0_24px_80px_rgba(0,0,0,0.08)] md:p-12">
-          <div className="space-y-12">
-            <section>
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                Overview
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                This website provides educational and informational content about
-                artificial intelligence, programming, cybersecurity, web
-                development, and modern technology. Visitor privacy is important,
-                and this policy explains what information may be collected and
-                how it may be used.
-              </p>
-            </section>
+      <section className="mx-auto max-w-4xl px-4 py-8 md:px-6 md:py-14">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <p className="text-sm leading-7 text-slate-600">
+            Last updated: 2026-06-16
+          </p>
 
-            <section>
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                Information We May Collect
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                This website may collect basic non-sensitive information such as
-                pages visited, browser type, device type, approximate location,
-                and general usage statistics. This information helps improve the
-                website experience and understand which content is useful to
-                visitors.
-              </p>
-            </section>
+          <h2 className="mt-8 text-2xl font-black">Information Collection</h2>
+          <p className="mt-3 text-base leading-8 text-slate-700">
+            This website is primarily a personal portfolio and educational technology publication. It does not intentionally collect sensitive personal information from visitors.
+          </p>
 
-            <section>
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                Cookies and Analytics
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                Cookies or similar technologies may be used to measure website
-                performance, analyze traffic, and improve user experience. If
-                services such as Google Analytics or Google AdSense are added,
-                they may use cookies according to their own privacy policies.
-              </p>
-            </section>
+          <h2 className="mt-8 text-2xl font-black">Contact Information</h2>
+          <p className="mt-3 text-base leading-8 text-slate-700">
+            If you contact me by email or through linked external platforms, the information you provide may be used only to respond to your message.
+          </p>
 
-            <section>
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                Third-Party Services
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                This website may use third-party tools for analytics,
-                advertising, hosting, or performance measurement. These services
-                may collect information according to their own terms and privacy
-                policies.
-              </p>
-            </section>
+          <h2 className="mt-8 text-2xl font-black">Analytics and Advertising</h2>
+          <p className="mt-3 text-base leading-8 text-slate-700">
+            This website may use analytics or advertising services in the future to understand traffic and improve content. These services may use cookies or similar technologies according to their own policies.
+          </p>
 
-            <section>
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                External Links
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                Articles may include links to external websites, tools, or
-                resources. This website is not responsible for the content,
-                security, or privacy practices of external websites.
-              </p>
-            </section>
+          <h2 className="mt-8 text-2xl font-black">External Links</h2>
+          <p className="mt-3 text-base leading-8 text-slate-700">
+            Articles and pages may include links to external websites such as LinkedIn, GitHub, tools, platforms, or educational resources. This website is not responsible for the privacy practices of external websites.
+          </p>
 
-            <section>
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                Data Security
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                Reasonable steps are taken to keep the website secure. However,
-                no website can guarantee complete protection against every
-                security risk.
-              </p>
-            </section>
+          <h2 className="mt-8 text-2xl font-black">Educational Content</h2>
+          <p className="mt-3 text-base leading-8 text-slate-700">
+            The content published on this website is for educational and informational purposes only.
+          </p>
 
-            <section>
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                Policy Updates
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                This Privacy Policy may be updated when needed. Any changes will
-                be published on this page with an updated date.
-              </p>
-            </section>
-
-            <section className="rounded-[24px] bg-[#f5f5f7] p-6">
-              <h2 className="text-2xl font-semibold tracking-[-0.02em]">
-                Contact
-              </h2>
-              <p className="mt-4 text-lg leading-9 text-[#515154]">
-                For privacy-related questions, please contact the website owner
-                through the contact page.
-              </p>
-            </section>
-          </div>
+          <h2 className="mt-8 text-2xl font-black">Contact</h2>
+          <p className="mt-3 text-base leading-8 text-slate-700">
+            For privacy-related questions, contact: mustafa_alzaidi@icloud.com
+          </p>
         </div>
       </section>
     </main>
