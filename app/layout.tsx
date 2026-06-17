@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -96,13 +98,7 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: [
-      {
-        url: "/icon.png",
-        type: "image/png",
-        sizes: "512x512",
-      },
-    ],
+    icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
     shortcut: "/icon.png",
     apple: "/icon.png",
   },
@@ -153,9 +149,7 @@ export const metadata: Metadata = {
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-
   name: "Mustafa Alzaidi",
-
   alternateName: [
     "Mustafa Mohammed Alzaidi",
     "Mustafa Mohammed Hamzah Alzaidi",
@@ -163,28 +157,22 @@ const personSchema = {
     "مصطفى الزيدي",
     "مصطفى محمد حمزة",
   ],
-
   url: "https://mustafaalzaidi.com",
   image: "https://mustafaalzaidi.com/icon.png",
-
   jobTitle: "Cybersecurity Engineering Student | Commercial Model",
-
   description:
     "Mustafa Alzaidi is a Cybersecurity Engineering Student at Al-Mashriq University in Baghdad, Iraq, and a Commercial Video Model.",
-
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "Al-Mashriq University",
     sameAs: "https://uom.edu.iq",
   },
-
   address: {
     "@type": "PostalAddress",
     addressLocality: "Baghdad",
     addressRegion: "Baghdad Governorate",
     addressCountry: "Iraq",
   },
-
   knowsAbout: [
     "Cybersecurity",
     "Cybersecurity Engineering",
@@ -196,7 +184,6 @@ const personSchema = {
     "Commercial Modeling",
     "Brand Campaigns",
   ],
-
   sameAs: [
     "https://www.linkedin.com/in/mostafa-mohammed-hamzah-bb4870354",
     "https://github.com/reoiraqiman",
@@ -237,6 +224,9 @@ export default function RootLayout({
         />
 
         {children}
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
