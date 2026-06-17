@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllArticles } from "@/data/articles";
+import ArticleSearch from "@/app/components/ArticleSearch";
 
 const siteUrl = "https://mustafaalzaidi.com";
 
@@ -128,6 +129,8 @@ export default function ArticlesPage() {
           </div>
         </div>
       </section>
+
+      <ArticleSearch articles={articles} />
 
       <section className="mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-14">
         {featured && (
