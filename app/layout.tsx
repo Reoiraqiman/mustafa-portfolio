@@ -193,6 +193,7 @@ const personSchema = {
 };
 
 const GA_MEASUREMENT_ID = "G-K86YT5EM4V";
+const ADSENSE_CLIENT_ID = "ca-pub-4419488640047407";
 
 export default function RootLayout({
   children,
@@ -215,6 +216,14 @@ export default function RootLayout({
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
+
+        <Script
+          id="google-adsense"
+          async
+          strategy="afterInteractive"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
+        />
 
         <script
           type="application/ld+json"
